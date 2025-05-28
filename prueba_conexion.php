@@ -24,7 +24,7 @@ try {
     echo "Conexión exitosa a la base de datos '{$dbName}' en '{$dbHost}'.";
 } catch (PDOException $e) {
     // Manejo de error de conexión
-    error_log('Error de conexión PDO: ' . $e->getMessage());
+    echo "Error de conexión PDO: " . $e->getMessage());
     echo "Error al conectar con la base de datos.";
     exit;
 }
