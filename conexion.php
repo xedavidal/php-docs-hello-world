@@ -22,7 +22,7 @@ try {
         PDO::MYSQL_ATTR_SSL_CA        => '/home/site/certs/BaltimoreCyberTrustRoot.crt.pem',
         // Si el nombre de host del certificado no coincide, 
         // desactivar la verificación estricta:
-        PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
+        PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => true,
     ];
 
     $pdo = new PDO($dsn, $dbUser, $dbPass, $options);
