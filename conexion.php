@@ -3,7 +3,7 @@
 $dbHost = getenv('DB_HOST');
 $dbName = "prueba";         
 $dbUser = getenv('DB_USER');
-$dbPass = getenv('DB_PASS');
+$dbPass = getenv('DB_PASSWORD');
 
 echo $dbHost . " " . $dbName . " " . $dbUser . " " . $dbPass;
 
