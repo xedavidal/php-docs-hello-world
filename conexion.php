@@ -14,19 +14,24 @@ $dsn = "mysql:host={$dbHost};dbname={$dbName};charset=utf8mb4";
 
 try {
     $options = [
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES   => false,
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,   // Excepciones en errores
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,         // Fetch como array asociativo
+        PDO::ATTR_EMULATE_PREPARES   => false,                    // Desactivar emulación de prepares
 
-        // Asegurar la conexión TLS:
-        PDO::MYSQL_ATTR_SSL_CA        => '/home/site/certs/BaltimoreCyberTrustRoot.crt.pem',
-        // Desactivamos la validación de certificado SSL, para evitar error de conexión
+        // Asegurar la conexión TLS hacia Azure Database for MySQL
+        PDO::MYSQL_ATTR_SSL_CA        => '/etc/ssl/certs/BaltimoreCyberTrustRoot.crt.pem',
         PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
     ];
 
+    // Crear la conexión PDO
     $pdo = new PDO($dsn, $dbUser, $dbPass, $options);
-    echo "Conexión SSL establecida correctamente contra la bbdd.";
+
+    // Ejemplo: consulta sencilla
+    $stmt = $pdo->query('SELECT NOW() AS fecha_actual;');
+    $fila = $stmt->fetch();
+    echo "Conectado correctamente. Hora del servidor: " . $fila['fecha_actual'];
 } catch (PDOException $e) {
-    error_log('Error PDO SSL: ' . $e->getMessage());
-    echo "Error de conexión SSL: " . htmlspecialchars($e->getMessage());
+    error_log('Error de conexión PDO: ' . $e->getMessage());
+    echo "Error al conectar con la base de datos: " . htmlspecialchars($e->getMessage());
+    exit;
 }
