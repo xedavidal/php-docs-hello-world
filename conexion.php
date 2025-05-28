@@ -20,13 +20,12 @@ try {
 
         // Asegurar la conexión TLS:
         PDO::MYSQL_ATTR_SSL_CA        => '/home/site/certs/BaltimoreCyberTrustRoot.crt.pem',
-        // Si el nombre de host del certificado no coincide, 
-        // desactivar la verificación estricta:
+        // Activamos la validación de certificado SSL
         PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => true,
     ];
 
     $pdo = new PDO($dsn, $dbUser, $dbPass, $options);
-    echo "Conexión SSL establecida correctamente.";
+    echo "Conexión SSL establecida correctamente contra la bbdd.";
 } catch (PDOException $e) {
     error_log('Error PDO SSL: ' . $e->getMessage());
     echo "Error de conexión SSL: " . htmlspecialchars($e->getMessage());
