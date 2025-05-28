@@ -20,8 +20,8 @@ try {
 
         // Asegurar la conexión TLS:
         PDO::MYSQL_ATTR_SSL_CA        => '/home/site/certs/BaltimoreCyberTrustRoot.crt.pem',
-        // Activamos la validación de certificado SSL
-        PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => true,
+        // Desactivamos la validación de certificado SSL, para evitar error de conexión
+        PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
     ];
 
     $pdo = new PDO($dsn, $dbUser, $dbPass, $options);
